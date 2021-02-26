@@ -21,9 +21,11 @@ public class ExceptionsInArray {
               try {
                   int number = Integer.parseInt(arr1[i][j]);
               }catch (NumberFormatException e){
+                  String arrayElement = arr1[i][j];
+                  e.printStackTrace();
                   System.out.println("ЗНАЧЕНИЕ МАССИВА ИМЕЕТ НЕ ЧИСЛОВОЕ ЗНАЧЕНИЕ");
                   System.out.println("ОШИБКА В ЯЧЕЙКЕ МАССИВА: (строка * столбец)"  + "  " +
-                          (i +1) + "*" + (j +1) + " значение - " + arr1[i][j]);
+                          (i +1) + "*" + (j +1) + " значение - " + arrayElement);
                   return false;
               }
             }
@@ -32,20 +34,18 @@ public class ExceptionsInArray {
     }
     public static void main(String[] args) {
         String[][] arr1 = {
-                {"22", "37", "67", "15", "25"},
-                {"1", "3", "7", "work"},
-                {"2", "1", "0", "0"},
-                {"52", "77", "87", "54"}
+                {"22", "37", "67", "15"},
+                {"1", "3", "7", "125"},
+                {"2", "test", "0", "0"},
+                {"52", "77", "87", "54", "new"}
         };
                 try { int result;
                     result = exceptionMethod(arr1);
                     System.out.println("Сумма числовых элементов массива равна: " + result);
-                     return;
                 } catch (MyArraySizeException e) {
                     e.printStackTrace();
                     System.out.println();
                     System.out.println("РАЗМЕР МАССИВА НЕ РАВЕН 4 (четырем)!");
-                    return;
                 } catch (MyArrayDataException e) {
                     e.printStackTrace();
                 }
