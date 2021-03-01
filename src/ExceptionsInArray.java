@@ -3,57 +3,46 @@ public class ExceptionsInArray {
         int sumOfElements = 0;
         if (arr1.length != 4) throw new MyArraySizeException();
         for (String[] strings : arr1) {
-            if (strings.length != 4) throw new MyArraySizeException();
-            for (int j = 0; j < arr1.length; j++) {
+            if (strings.length != 4)
+                throw new MyArraySizeException();
+            for (int j = 0; j < strings.length; j++) {
                 try {
                     sumOfElements += Integer.parseInt(strings[j]);
                 } catch (NumberFormatException e) {
-                    DataException(arr1);
+                    String arrayElement = strings[j];
+                    System.out.println("ЗНАЧЕНИЕ МАССИВА ИМЕЕТ НЕ ЧИСЛОВОЕ ЗНАЧЕНИЕ");
+                    System.out.println("ОШИБКА В ЯЧЕЙКЕ МАССИВА: "+
+                           "в строке: " + (j + 1) + " *" + " столбца: " + (j) + " в значении - " + arrayElement);
+                    e.printStackTrace();
                 }
             }
         }
         System.out.println();
         return sumOfElements;
     }
-    public static boolean DataException(String[][] arr1) {
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = 0; j < arr1.length; j++) {
-              try {
-                  int number = Integer.parseInt(arr1[i][j]);
-              }catch (NumberFormatException e){
-                  String arrayElement = arr1[i][j];
-                  e.printStackTrace();
-                  System.out.println("ЗНАЧЕНИЕ МАССИВА ИМЕЕТ НЕ ЧИСЛОВОЕ ЗНАЧЕНИЕ");
-                  System.out.println("ОШИБКА В ЯЧЕЙКЕ МАССИВА: (строка * столбец)"  + "  " +
-                          (i +1) + "*" + (j +1) + " значение - " + arrayElement);
-                  return false;
-              }
-            }
-        }
-        return true;
-    }
+
     public static void main(String[] args) {
         String[][] arr1 = {
                 {"22", "37", "67", "15"},
                 {"1", "3", "7", "125"},
                 {"2", "test", "0", "0"},
-                {"52", "77", "87", "54", "new"}
+                {"52", "77", "87", "new"},
+                {"66"}
         };
                 try { int result;
                     result = exceptionMethod(arr1);
                     System.out.println("Сумма числовых элементов массива равна: " + result);
-                } catch (MyArraySizeException e) {
-                    e.printStackTrace();
                     System.out.println();
+                } catch (MyArraySizeException e) {
                     System.out.println("РАЗМЕР МАССИВА НЕ РАВЕН 4 (четырем)!");
-                } catch (MyArrayDataException e) {
                     e.printStackTrace();
                 }
             }
     private static class MyArraySizeException extends IndexOutOfBoundsException {
 
+
     }
-    private static class MyArrayDataException extends ClassCastException {
+    private static class MyArrayDataException extends NumberFormatException {
 
     }
 }
